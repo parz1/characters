@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "number",
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^acc_[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "workspaceId": {
+      "type": "string",
+      "pattern": "^ws_[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "at": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+    },
+    "actor": {
+      "type": "string",
+      "enum": [
+        "admin",
+        "agent",
+        "service"
+      ]
+    },
+    "operation": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "connectionId": {
+      "type": "string",
+      "pattern": "^conn_[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "bindingId": {
+      "type": "string",
+      "pattern": "^bind_[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "outcome": {
+      "type": "string",
+      "enum": [
+        "success",
+        "denied"
+      ]
+    },
+    "memoryId": {
+      "type": "string",
+      "pattern": "^mem_[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "snapshotId": {
+      "type": "string",
+      "pattern": "^snap_[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "code": {
+      "type": "string",
+      "enum": [
+        "INVALID_INPUT",
+        "NOT_FOUND",
+        "CONFLICT",
+        "BUSY",
+        "ISOLATION_UNSUPPORTED",
+        "PERMISSION_DENIED",
+        "CONTEXT_LIMIT",
+        "ADAPTER_PROTOCOL",
+        "ADAPTER_FAILED",
+        "ADAPTER_TIMEOUT",
+        "STORE_CORRUPT",
+        "RECOVERY_REQUIRED",
+        "CANCELLED",
+        "PROTOCOL_UNSUPPORTED",
+        "SERVICE_UNAVAILABLE",
+        "BINDING_INACTIVE",
+        "EVIDENCE_EXPIRED"
+      ]
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "workspaceId",
+    "at",
+    "actor",
+    "operation",
+    "outcome"
+  ],
+  "additionalProperties": false,
+  "title": "access-event"
+}

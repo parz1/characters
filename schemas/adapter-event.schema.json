@@ -1,0 +1,319 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "runId": {
+          "type": "string",
+          "pattern": "^run_[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "type": {
+          "type": "string",
+          "const": "started"
+        }
+      },
+      "required": [
+        "runId",
+        "sequence",
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "runId": {
+          "type": "string",
+          "pattern": "^run_[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "type": {
+          "type": "string",
+          "const": "text"
+        },
+        "delta": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "runId",
+        "sequence",
+        "type",
+        "delta"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "runId": {
+          "type": "string",
+          "pattern": "^run_[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "type": {
+          "type": "string",
+          "const": "tool-request"
+        },
+        "requestId": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "name": {
+          "type": "string",
+          "const": "source.read"
+        },
+        "sourceId": {
+          "type": "string",
+          "pattern": "^src_[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        }
+      },
+      "required": [
+        "runId",
+        "sequence",
+        "type",
+        "requestId",
+        "name",
+        "sourceId"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "runId": {
+          "type": "string",
+          "pattern": "^run_[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "type": {
+          "type": "string",
+          "const": "proposal"
+        },
+        "proposal": {
+          "type": "object",
+          "properties": {
+            "target": {
+              "type": "string",
+              "enum": [
+                "outline",
+                "draft"
+              ]
+            },
+            "baseRevision": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "content": {
+              "type": "string",
+              "minLength": 1
+            },
+            "sourceIds": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^src_[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              }
+            }
+          },
+          "required": [
+            "target",
+            "baseRevision",
+            "content",
+            "sourceIds"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "runId",
+        "sequence",
+        "type",
+        "proposal"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "runId": {
+          "type": "string",
+          "pattern": "^run_[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "type": {
+          "type": "string",
+          "const": "memory-candidate"
+        },
+        "candidate": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "enum": [
+                "fact",
+                "event",
+                "opinion",
+                "relationship",
+                "preference"
+              ]
+            },
+            "content": {
+              "type": "string",
+              "minLength": 1
+            },
+            "sourceIds": {
+              "minItems": 1,
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "required": [
+            "kind",
+            "content",
+            "sourceIds"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "runId",
+        "sequence",
+        "type",
+        "candidate"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "runId": {
+          "type": "string",
+          "pattern": "^run_[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "type": {
+          "type": "string",
+          "const": "completed"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "isolationAudit": {
+          "type": "object",
+          "properties": {
+            "globalMemoryMetadataUnchanged": {
+              "type": "boolean"
+            },
+            "executionDirectoryRemoved": {
+              "type": "boolean"
+            },
+            "toolCallsObserved": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "globalMemoryMetadataUnchanged",
+            "executionDirectoryRemoved",
+            "toolCallsObserved"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "runId",
+        "sequence",
+        "type",
+        "text"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "runId": {
+          "type": "string",
+          "pattern": "^run_[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "type": {
+          "type": "string",
+          "const": "failed"
+        },
+        "code": {
+          "type": "string",
+          "enum": [
+            "INVALID_INPUT",
+            "NOT_FOUND",
+            "CONFLICT",
+            "BUSY",
+            "ISOLATION_UNSUPPORTED",
+            "PERMISSION_DENIED",
+            "CONTEXT_LIMIT",
+            "ADAPTER_PROTOCOL",
+            "ADAPTER_FAILED",
+            "ADAPTER_TIMEOUT",
+            "STORE_CORRUPT",
+            "RECOVERY_REQUIRED",
+            "CANCELLED",
+            "PROTOCOL_UNSUPPORTED",
+            "SERVICE_UNAVAILABLE",
+            "BINDING_INACTIVE",
+            "EVIDENCE_EXPIRED"
+          ]
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "runId",
+        "sequence",
+        "type",
+        "code",
+        "message"
+      ],
+      "additionalProperties": false
+    }
+  ],
+  "title": "adapter-event"
+}

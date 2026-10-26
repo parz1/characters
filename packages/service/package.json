@@ -1,0 +1,17 @@
+{
+  "name": "@characters/service",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "dependencies": {
+    "@characters/core": "workspace:*",
+    "@characters/protocol": "workspace:*",
+    "zod": "4.6.7"
+  }
+}

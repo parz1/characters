@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "number",
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^run_[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "sessionId": {
+      "type": "string",
+      "pattern": "^ses_[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "parentRunId": {
+      "type": "string",
+      "pattern": "^run_[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "prepared",
+        "running",
+        "completed",
+        "failed",
+        "interrupted"
+      ]
+    },
+    "adapterId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "adapterVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "model": {
+      "type": "string",
+      "minLength": 1
+    },
+    "contextSnapshotId": {
+      "type": "string",
+      "pattern": "^snap_[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "capabilityEvidenceId": {
+      "type": "string",
+      "pattern": "^evd_[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "isolationRequested": {
+      "type": "string",
+      "enum": [
+        "strict",
+        "relaxed"
+      ]
+    },
+    "isolationEffective": {
+      "type": "string",
+      "enum": [
+        "strict",
+        "relaxed"
+      ]
+    },
+    "startedAt": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+    },
+    "endedAt": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+    },
+    "errorCode": {
+      "type": "string",
+      "enum": [
+        "INVALID_INPUT",
+        "NOT_FOUND",
+        "CONFLICT",
+        "BUSY",
+        "ISOLATION_UNSUPPORTED",
+        "PERMISSION_DENIED",
+        "CONTEXT_LIMIT",
+        "ADAPTER_PROTOCOL",
+        "ADAPTER_FAILED",
+        "ADAPTER_TIMEOUT",
+        "STORE_CORRUPT",
+        "RECOVERY_REQUIRED",
+        "CANCELLED",
+        "PROTOCOL_UNSUPPORTED",
+        "SERVICE_UNAVAILABLE",
+        "BINDING_INACTIVE",
+        "EVIDENCE_EXPIRED"
+      ]
+    },
+    "resultDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "owner": {
+      "type": "object",
+      "properties": {
+        "pid": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        },
+        "host": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "pid",
+        "host"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "sessionId",
+    "status",
+    "adapterId",
+    "adapterVersion",
+    "contextSnapshotId",
+    "capabilityEvidenceId",
+    "isolationRequested",
+    "isolationEffective"
+  ],
+  "additionalProperties": false,
+  "title": "run"
+}

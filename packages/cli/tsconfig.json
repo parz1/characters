@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": { "rootDir": "src", "outDir": "dist" },
+  "references": [
+    { "path": "../mcp" },
+    { "path": "../core" },
+    { "path": "../adapters" },
+    { "path": "../service" }
+  ],
+  "include": ["src/**/*.ts"]
+}

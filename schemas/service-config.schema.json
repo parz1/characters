@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "number",
+      "const": 1
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "workspaceId": {
+      "type": "string",
+      "pattern": "^ws_[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "protocolVersion": {
+      "type": "number",
+      "const": 1
+    },
+    "bindingTtlSeconds": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 3600
+    },
+    "defaultIsolation": {
+      "type": "string",
+      "const": "strict"
+    },
+    "memoryWrite": {
+      "type": "string",
+      "const": "confirm"
+    },
+    "contextBudgetBytes": {
+      "type": "integer",
+      "minimum": 1024,
+      "maximum": 262144
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "revision",
+    "workspaceId",
+    "enabled",
+    "protocolVersion",
+    "bindingTtlSeconds",
+    "defaultIsolation",
+    "memoryWrite",
+    "contextBudgetBytes"
+  ],
+  "additionalProperties": false,
+  "title": "service-config"
+}

@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "number",
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "maxLength": 64,
+      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?$"
+    },
+    "languages": {
+      "minItems": 1,
+      "maxItems": 3,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "cn",
+          "ja",
+          "en"
+        ]
+      }
+    },
+    "defaultLanguage": {
+      "type": "string",
+      "enum": [
+        "cn",
+        "ja",
+        "en"
+      ]
+    },
+    "files": {
+      "type": "object",
+      "properties": {
+        "persona": {
+          "type": "string",
+          "maxLength": 240,
+          "pattern": "^(?!.*(?:^|\\/)\\.{1,2}(?:\\/|$))(?!.*(?:^|\\/)(?:[cC][oO][nN]|[pP][rR][nN]|[aA][uU][xX]|[nN][uU][lL]|[cC][oO][mM][0-9]|[lL][pP][tT][0-9])(?:\\.|\\/|$))(?!.*[. ](?:\\/|$))[a-zA-Z0-9_.-]+(?:\\/[a-zA-Z0-9_.-]+)*$"
+        },
+        "voice": {
+          "type": "string",
+          "maxLength": 240,
+          "pattern": "^(?!.*(?:^|\\/)\\.{1,2}(?:\\/|$))(?!.*(?:^|\\/)(?:[cC][oO][nN]|[pP][rR][nN]|[aA][uU][xX]|[nN][uU][lL]|[cC][oO][mM][0-9]|[lL][pP][tT][0-9])(?:\\.|\\/|$))(?!.*[. ](?:\\/|$))[a-zA-Z0-9_.-]+(?:\\/[a-zA-Z0-9_.-]+)*$"
+        },
+        "relationships": {
+          "type": "string",
+          "maxLength": 240,
+          "pattern": "^(?!.*(?:^|\\/)\\.{1,2}(?:\\/|$))(?!.*(?:^|\\/)(?:[cC][oO][nN]|[pP][rR][nN]|[aA][uU][xX]|[nN][uU][lL]|[cC][oO][mM][0-9]|[lL][pP][tT][0-9])(?:\\.|\\/|$))(?!.*[. ](?:\\/|$))[a-zA-Z0-9_.-]+(?:\\/[a-zA-Z0-9_.-]+)*$"
+        }
+      },
+      "required": [
+        "persona",
+        "voice",
+        "relationships"
+      ],
+      "additionalProperties": false
+    },
+    "modes": {
+      "type": "object",
+      "properties": {
+        "conversation": {
+          "type": "string",
+          "maxLength": 240,
+          "pattern": "^(?!.*(?:^|\\/)\\.{1,2}(?:\\/|$))(?!.*(?:^|\\/)(?:[cC][oO][nN]|[pP][rR][nN]|[aA][uU][xX]|[nN][uU][lL]|[cC][oO][mM][0-9]|[lL][pP][tT][0-9])(?:\\.|\\/|$))(?!.*[. ](?:\\/|$))[a-zA-Z0-9_.-]+(?:\\/[a-zA-Z0-9_.-]+)*$"
+        },
+        "coauthor": {
+          "type": "string",
+          "maxLength": 240,
+          "pattern": "^(?!.*(?:^|\\/)\\.{1,2}(?:\\/|$))(?!.*(?:^|\\/)(?:[cC][oO][nN]|[pP][rR][nN]|[aA][uU][xX]|[nN][uU][lL]|[cC][oO][mM][0-9]|[lL][pP][tT][0-9])(?:\\.|\\/|$))(?!.*[. ](?:\\/|$))[a-zA-Z0-9_.-]+(?:\\/[a-zA-Z0-9_.-]+)*$"
+        }
+      },
+      "required": [
+        "conversation",
+        "coauthor"
+      ],
+      "additionalProperties": false
+    },
+    "examples": {
+      "type": "object",
+      "properties": {
+        "good": {
+          "type": "string",
+          "maxLength": 240,
+          "pattern": "^(?!.*(?:^|\\/)\\.{1,2}(?:\\/|$))(?!.*(?:^|\\/)(?:[cC][oO][nN]|[pP][rR][nN]|[aA][uU][xX]|[nN][uU][lL]|[cC][oO][mM][0-9]|[lL][pP][tT][0-9])(?:\\.|\\/|$))(?!.*[. ](?:\\/|$))[a-zA-Z0-9_.-]+(?:\\/[a-zA-Z0-9_.-]+)*$"
+        },
+        "bad": {
+          "type": "string",
+          "maxLength": 240,
+          "pattern": "^(?!.*(?:^|\\/)\\.{1,2}(?:\\/|$))(?!.*(?:^|\\/)(?:[cC][oO][nN]|[pP][rR][nN]|[aA][uU][xX]|[nN][uU][lL]|[cC][oO][mM][0-9]|[lL][pP][tT][0-9])(?:\\.|\\/|$))(?!.*[. ](?:\\/|$))[a-zA-Z0-9_.-]+(?:\\/[a-zA-Z0-9_.-]+)*$"
+        }
+      },
+      "required": [
+        "good",
+        "bad"
+      ],
+      "additionalProperties": false
+    },
+    "contextKeys": {
+      "maxItems": 64,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9-]*(?:\\/[a-z][a-z0-9-]*)+$"
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "name",
+    "version",
+    "languages",
+    "defaultLanguage",
+    "files",
+    "modes",
+    "examples",
+    "contextKeys"
+  ],
+  "additionalProperties": false,
+  "title": "character"
+}

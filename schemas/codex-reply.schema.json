@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "reply": {
+      "type": "string",
+      "minLength": 1
+    },
+    "proposal": {
+      "type": "object",
+      "properties": {
+        "target": {
+          "type": "string",
+          "enum": [
+            "none",
+            "outline",
+            "draft"
+          ]
+        },
+        "content": {
+          "type": "string"
+        },
+        "sourceIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "target",
+        "content",
+        "sourceIds"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "reply",
+    "proposal"
+  ],
+  "additionalProperties": false,
+  "title": "codex-reply"
+}

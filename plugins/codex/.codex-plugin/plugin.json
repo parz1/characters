@@ -1,0 +1,7 @@
+{
+  "name": "characters",
+  "version": "0.1.0",
+  "description": "Explicit per-session character context and reviewed memory via a local management service",
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json"
+}

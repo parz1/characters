@@ -1,0 +1,225 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "number",
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^ws_[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "timezone": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "policy": {
+      "type": "object",
+      "properties": {
+        "isolation": {
+          "type": "string",
+          "enum": [
+            "strict",
+            "relaxed"
+          ]
+        },
+        "memoryWrite": {
+          "type": "string",
+          "const": "confirm"
+        },
+        "network": {
+          "type": "string",
+          "const": "adapter-only"
+        },
+        "tools": {
+          "maxItems": 1,
+          "type": "array",
+          "items": {
+            "type": "string",
+            "const": "source.read"
+          }
+        }
+      },
+      "required": [
+        "isolation",
+        "memoryWrite",
+        "network",
+        "tools"
+      ],
+      "additionalProperties": false
+    },
+    "runtime": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "args": {
+              "maxItems": 64,
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "environmentAllowlist": {
+              "maxItems": 64,
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+              }
+            },
+            "contextBudget": {
+              "type": "object",
+              "properties": {
+                "maxUtf8Bytes": {
+                  "type": "integer",
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "maxOutputUtf8Bytes": {
+                  "type": "integer",
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991
+                }
+              },
+              "required": [
+                "maxUtf8Bytes",
+                "maxOutputUtf8Bytes"
+              ],
+              "additionalProperties": false
+            },
+            "adapter": {
+              "type": "string",
+              "const": "unconfigured"
+            }
+          },
+          "required": [
+            "args",
+            "environmentAllowlist",
+            "contextBudget",
+            "adapter"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "args": {
+              "maxItems": 64,
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "environmentAllowlist": {
+              "maxItems": 64,
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+              }
+            },
+            "contextBudget": {
+              "type": "object",
+              "properties": {
+                "maxUtf8Bytes": {
+                  "type": "integer",
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "maxOutputUtf8Bytes": {
+                  "type": "integer",
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991
+                }
+              },
+              "required": [
+                "maxUtf8Bytes",
+                "maxOutputUtf8Bytes"
+              ],
+              "additionalProperties": false
+            },
+            "adapter": {
+              "type": "string",
+              "const": "fake"
+            }
+          },
+          "required": [
+            "args",
+            "environmentAllowlist",
+            "contextBudget",
+            "adapter"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "args": {
+              "maxItems": 64,
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "environmentAllowlist": {
+              "maxItems": 64,
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+              }
+            },
+            "contextBudget": {
+              "type": "object",
+              "properties": {
+                "maxUtf8Bytes": {
+                  "type": "integer",
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "maxOutputUtf8Bytes": {
+                  "type": "integer",
+                  "exclusiveMinimum": 0,
+                  "maximum": 9007199254740991
+                }
+              },
+              "required": [
+                "maxUtf8Bytes",
+                "maxOutputUtf8Bytes"
+              ],
+              "additionalProperties": false
+            },
+            "adapter": {
+              "type": "string",
+              "const": "stdio"
+            },
+            "command": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "args",
+            "environmentAllowlist",
+            "contextBudget",
+            "adapter",
+            "command"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "timezone",
+    "policy",
+    "runtime"
+  ],
+  "additionalProperties": false,
+  "title": "workspace"
+}

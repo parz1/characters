@@ -1,0 +1,22 @@
+{
+  "name": "@characters/mcp",
+  "version": "0.1.0",
+  "private": true,
+  "bin": {
+    "characters-mcp": "./dist/stdio.js"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "dependencies": {
+    "@characters/core": "workspace:*",
+    "@characters/protocol": "workspace:*",
+    "@characters/service": "workspace:*",
+    "@modelcontextprotocol/sdk": "1.32.2",
+    "zod": "4.6.7"
+  }
+}

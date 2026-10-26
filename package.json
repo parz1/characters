@@ -1,0 +1,38 @@
+{
+  "name": "characters",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc -b && tsc -p tsconfig.tests.json --noEmit",
+    "characters": "node packages/cli/dist/index.js",
+    "codex:m0": "node --experimental-strip-types scripts/codex-m0.ts",
+    "demo:m3": "pnpm build && node --experimental-strip-types scripts/m3-demo.ts",
+    "demo:m4": "pnpm build && node --experimental-strip-types scripts/m3-demo.ts --transport mcp",
+    "test": "pnpm build && node --experimental-strip-types --test tests/*.test.ts",
+    "schemas:generate": "pnpm build && node --experimental-strip-types scripts/generate-schemas.ts",
+    "schemas:check": "node --experimental-strip-types scripts/generate-schemas.ts --check",
+    "format": "oxfmt --write .",
+    "format:check": "oxfmt --check .",
+    "lint": "oxlint",
+    "check": "pnpm typecheck && pnpm schemas:check && pnpm lint && pnpm format:check && pnpm test"
+  },
+  "devDependencies": {
+    "@characters/adapters": "workspace:*",
+    "@characters/core": "workspace:*",
+    "@characters/mcp": "workspace:*",
+    "@characters/protocol": "workspace:*",
+    "@characters/service": "workspace:*",
+    "@modelcontextprotocol/sdk": "1.32.2",
+    "@types/node": "24.19.2",
+    "oxfmt": "0.74.0",
+    "oxlint": "1.89.0",
+    "typescript": "7.0.2",
+    "zod": "4.6.7"
+  },
+  "engines": {
+    "node": ">=24.18.0"
+  },
+  "packageManager": "pnpm@11.9.0"
+}

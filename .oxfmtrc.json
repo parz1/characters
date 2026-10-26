@@ -1,0 +1,12 @@
+{
+  "semi": false,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "printWidth": 80,
+  "ignorePatterns": [
+    "node_modules/**",
+    "**/dist/**",
+    "pnpm-lock.yaml",
+    "schemas/*.json"
+  ]
+}

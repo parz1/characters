@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "characters": {
+      "command": "node",
+      "args": [
+        "<ABSOLUTE_CHARACTERS_MCP_STDIO_JS>",
+        "--workspace",
+        "<EXPLICIT_WORKSPACE>",
+        "--pairing",
+        "<PAIRING_REF>"
+      ]
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "reportVersion": 1,
+  "method": "codex-host-local-lab-v1",
+  "checkedAt": "2026-10-25T12:12:07.750Z",
+  "hostVersion": "codex-cli 0.164.0-alpha.11.1",
+  "hostBinaryDigest": "1103e9e09c71fa2cd0afd6d8f3b9a2d63174fe8efd7cb5bd09f1cb14ef58a098",
+  "scope": "isolated-app-server-not-existing-tui-or-desktop",
+  "realCredentialsUsed": false,
+  "realModelUsed": false,
+  "schema": {
+    "threadMetadataAvailable": true,
+    "threadMemoryModeAvailable": true,
+    "disabledPluginIdsWarning": "Saved list of disabled plugin IDs. Does not yet filter plugin capabilities."
+  },
+  "checks": {
+    "compatibilityPluginLoaded": true,
+    "portableManifestRecognized": false,
+    "perThreadPluginSelection": true,
+    "mcpCallCarriesThreadId": true,
+    "threadMetadataIsNotToolArgument": true,
+    "roleToolResultReachesModelInput": true,
+    "activeThreadMemoryReadDisabled": true,
+    "baselineThreadMemoryReadPreserved": true,
+    "memoryGenerationEligibilityIsThreadScoped": true,
+    "memoryModeAloneStopsReading": false,
+    "disabledPluginIdsActuallyRemovesTools": true,
+    "disabledPluginBlocksDirectCall": true,
+    "reenabledPluginRestoresTools": true,
+    "otherActivePluginSessionUnaffected": true,
+    "closedThreadStillContainsDeliveredContext": true,
+    "otherSessionUnaffected": true,
+    "lifecycleDoesNotWriteSharedConfig": true,
+    "memoryFileUnchanged": true
+  },
+  "limitations": [
+    "M0 observes an isolated app-server controlled by the lab; it does not establish a stock plugin can control an existing TUI or desktop session.",
+    "Thread metadata identifies the host thread only within a trusted connection; it is not an authentication credential or memory-policy attestation.",
+    "Database memory_mode is generation-eligibility evidence; no background production memory extraction was run.",
+    "A server-side access gate is still required for revoke/stop. Already delivered context remains in host history.",
+    "Plugin installation/removal and config/mcpServer/reload are not character lifecycle operations."
+  ],
+  "strictPluginReady": false,
+  "cleanup": true
+}

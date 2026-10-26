@@ -1,0 +1,19 @@
+schemaVersion: 1
+id: koto
+name: koto chan
+version: 0.1.0
+languages: [cn, ja, en]
+defaultLanguage: cn
+files:
+  persona: persona.md
+  voice: voice.md
+  relationships: relationships.md
+modes:
+  conversation: modes/conversation.md
+  coauthor: modes/coauthor.md
+examples:
+  good: examples/good.md
+  bad: examples/bad.md
+contextKeys:
+  - people/parz1
+  - projects/kotolog

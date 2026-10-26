@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "number",
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^evd_[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "connectionId": {
+      "type": "string",
+      "pattern": "^conn_[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "hostSessionRef": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "hostId": {
+      "type": "string",
+      "maxLength": 64,
+      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+    },
+    "hostVersion": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "pluginVersion": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "verifierVersion": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "hostBinaryDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "configurationDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "globalMemoryRead": {
+      "type": "string",
+      "enum": [
+        "disabled",
+        "enabled",
+        "unknown"
+      ]
+    },
+    "globalMemoryWrite": {
+      "type": "string",
+      "enum": [
+        "disabled",
+        "enabled",
+        "unknown"
+      ]
+    },
+    "contextInjection": {
+      "type": "string",
+      "enum": [
+        "tool-result",
+        "native",
+        "unsupported",
+        "unknown"
+      ]
+    },
+    "contextRemoval": {
+      "type": "string",
+      "enum": [
+        "supported",
+        "unsupported",
+        "unknown"
+      ]
+    },
+    "fileBoundary": {
+      "type": "string",
+      "enum": [
+        "enforced",
+        "host-controlled",
+        "unknown"
+      ]
+    },
+    "providerRetention": {
+      "type": "string",
+      "enum": [
+        "configured",
+        "unknown"
+      ]
+    },
+    "result": {
+      "type": "string",
+      "enum": [
+        "pass",
+        "fail",
+        "unverified"
+      ]
+    },
+    "checkedAt": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+    },
+    "validUntil": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z))$"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "connectionId",
+    "hostSessionRef",
+    "hostId",
+    "hostVersion",
+    "pluginVersion",
+    "verifierVersion",
+    "configurationDigest",
+    "globalMemoryRead",
+    "globalMemoryWrite",
+    "contextInjection",
+    "contextRemoval",
+    "fileBoundary",
+    "providerRetention",
+    "result",
+    "checkedAt",
+    "validUntil"
+  ],
+  "additionalProperties": false,
+  "title": "host-evidence"
+}
