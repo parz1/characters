@@ -12,6 +12,8 @@ characters 是本地、可插拔的角色与记忆管理系统。它保存角色
 
 ## 架构与职责
 
+2026-10-27 补充：已提供独立可移除的本地参考测试客户端（packages/reference-host），使用 DeepSeek，经公开协议验证角色表达和记忆流程。客户端不是产品主体，模型循环与 key 不进入管理服务。见[参考客户端指南](reference-host.md)。Codex 插件暂缓，后续插件调查和真实验收以 dsh 为方向，尚不宣称 dsh 已支持。
+
 ```mermaid
 flowchart TB
   User[用户] --> Manager[管理 CLI / 后续 GUI]

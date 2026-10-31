@@ -5,6 +5,8 @@
     { "path": "packages/protocol" },
     { "path": "packages/service" },
     { "path": "packages/mcp" },
+    { "path": "packages/reference-host" },
+    { "path": "plugins/dsh" },
     { "path": "packages/adapters" },
     { "path": "packages/cli" }
   ]

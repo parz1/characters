@@ -130,7 +130,10 @@ export const gatewayTools = Object.entries(mcpOperations).map(
   },
 )
 
-export async function connectGateway(workspace: WorkspaceHandle, ref: string) {
+export async function connectPairedAgent(
+  workspace: WorkspaceHandle,
+  ref: string,
+) {
   const pairing = await readJson(
     workspace.root,
     ref,
@@ -237,6 +240,11 @@ export async function connectGateway(workspace: WorkspaceHandle, ref: string) {
       )
   }
   await describe()
+  return { pairing, rpc, describe }
+}
+
+export async function connectGateway(workspace: WorkspaceHandle, ref: string) {
+  const { pairing, rpc, describe } = await connectPairedAgent(workspace, ref)
   // Exclusive claim prevents a second process from reusing this connection's pairing.
   // After a crash require a fresh grant; never guess whether another host session is alive.
   const claimRef = `.runtime/service/gateway-${pairing.connectionId}.lock`

@@ -44,6 +44,8 @@ const help = `characters — 本地角色、记忆与会话绑定管理
   gateway pair --workspace PATH --connection ID --host-session REF
   plugin codex prepare --output EMPTY_PATH [--workspace PATH --pairing REF]
   plugin codex doctor
+  plugin dsh prepare --output EMPTY_PATH [--workspace PATH --project-root BLOG_PATH --project blog [--pairing REF]]
+  plugin dsh doctor
   connection grant --host HOST --plugin PLUGIN --host-session REF --character ID [--project KEY] [--context KEY] [--action ACTION] [--ttl 3600] [--isolation strict|relaxed]
   connection list | connection revoke ID --expect-revision N
   binding list | binding show ID | binding revoke ID --expect-revision N
@@ -55,6 +57,7 @@ const help = `characters — 本地角色、记忆与会话绑定管理
   context revoke KEY --expect-revision N
   context explain SNAPSHOT_ID --binding BINDING_ID [--content]
   character add PATH | character list | character show ID
+  chat CHARACTER [--workspace PATH] [--model MODEL] [--base-url URL] [--project KEY]
   work create --title TEXT --author character:koto --lang cn --kind log [--mode character]
   work show ID [--revision N]
   work update ID --patch FILE --expect-revision N
@@ -81,6 +84,14 @@ async function main(): Promise<void> {
   const argv = process.argv.slice(2)
   const jsonRequested = argv.includes('--json')
   try {
+    if (
+      argv[0] === 'plugin' &&
+      argv[1] === 'dsh' &&
+      (await (await import('./dsh.js')).runDshPlugin(argv))
+    )
+      return
+    if (argv[0] === 'chat' && (await (await import('./chat.js')).runChat(argv)))
+      return
     if (await runPlugin(argv)) return
     if (await runManagement(argv)) return
     let args

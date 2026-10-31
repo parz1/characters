@@ -13,6 +13,8 @@
     "@characters/adapters": "workspace:*",
     "@characters/core": "workspace:*",
     "@characters/mcp": "workspace:*",
-    "@characters/service": "workspace:*"
+    "@characters/reference-host": "workspace:*",
+    "@characters/service": "workspace:*",
+    "esbuild": "0.28.1"
   }
 }

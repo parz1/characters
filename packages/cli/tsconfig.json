@@ -2,6 +2,8 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": { "rootDir": "src", "outDir": "dist" },
   "references": [
+    { "path": "../../plugins/dsh" },
+    { "path": "../reference-host" },
     { "path": "../mcp" },
     { "path": "../core" },
     { "path": "../adapters" },

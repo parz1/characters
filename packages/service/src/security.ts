@@ -1,6 +1,7 @@
 import { execFile } from 'node:child_process'
 import { promisify } from 'node:util'
 import { chmod, mkdir, open, rename, unlink } from 'node:fs/promises'
+import path from 'node:path'
 import { randomBytes, timingSafeEqual } from 'node:crypto'
 import { hostname } from 'node:os'
 import { z } from 'zod'
@@ -30,27 +31,21 @@ export async function secureDirectory(
   const directory = await containedPath(workspace.root, '.runtime/service')
   await mkdir(directory, { recursive: true, mode: 0o700 })
   if (process.platform === 'win32') {
-    const { stdout } = await execute(
-      'whoami.exe',
-      ['/user', '/fo', 'csv', '/nh'],
-      { windowsHide: true, timeout: 10000 },
-    )
-    const sid = stdout.match(/S-1-[0-9-]+/)?.[0]
-    if (!sid)
-      throw new CharactersError(
-        'PERMISSION_DENIED',
-        '无法确认当前用户 SID。',
-        '检查 Windows 用户权限。',
-      )
     // DACL replacement removes inherited and existing broad grants on this private tree.
-    // EncodedCommand avoids shell interpolation of workspace paths. PowerShell's
-    // default nonterminating errors MUST be promoted before writing credentials.
+    // The current user's SID comes from the Windows identity API inside the same
+    // script: resolving whoami.exe through PATH picks up a coreutils whoami under
+    // Git Bash/MSYS. PowerShell itself is addressed by its system path for the
+    // same reason. EncodedCommand avoids shell interpolation of workspace paths.
+    // PowerShell's default nonterminating errors MUST be promoted before writing
+    // credentials.
     const encodedPath = Buffer.from(directory, 'utf8').toString('base64')
     const script = `$ErrorActionPreference = 'Stop'
 $target = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('${encodedPath}'))
+$sid = [System.Security.Principal.WindowsIdentity]::GetCurrent().User.Value
+if ($sid -notmatch '^S-1-[0-9-]+$') { throw 'Unable to determine current user SID' }
 $acl = New-Object System.Security.AccessControl.DirectorySecurity
 $acl.SetAccessRuleProtection($true, $false)
-foreach ($value in @('${sid}', 'S-1-5-18')) {
+foreach ($value in @($sid, 'S-1-5-18')) {
   $identity = New-Object System.Security.Principal.SecurityIdentifier($value)
   $rule = New-Object System.Security.AccessControl.FileSystemAccessRule($identity, 'FullControl', 'ContainerInherit,ObjectInherit', 'None', 'Allow')
   $acl.AddAccessRule($rule)
@@ -62,10 +57,16 @@ if (!$actual.AreAccessRulesProtected) { throw 'Unprotected credential directory'
 $rules = $actual.GetAccessRules($true, $true, [System.Security.Principal.SecurityIdentifier])
 if ($rules.Count -ne 2) { throw 'Unexpected credential ACL' }
 foreach ($rule in $rules) {
-  if ($rule.IdentityReference.Value -notin @('${sid}', 'S-1-5-18') -or $rule.AccessControlType -ne 'Allow') { throw 'Unexpected credential identity' }
+  if ($rule.IdentityReference.Value -notin @($sid, 'S-1-5-18') -or $rule.AccessControlType -ne 'Allow') { throw 'Unexpected credential identity' }
 }`
     await execute(
-      'powershell.exe',
+      path.join(
+        process.env.SystemRoot ?? 'C:\\Windows',
+        'System32',
+        'WindowsPowerShell',
+        'v1.0',
+        'powershell.exe',
+      ),
       [
         '-NoProfile',
         '-NonInteractive',
