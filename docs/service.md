@@ -35,7 +35,7 @@ pnpm characters service stop --workspace D:/characters-data/personal --json
 
 一个 ConnectionGrant 固定一个 hostId / hostSessionRef。这个标识由管理员配对，不能作为可信宿主能力证据。不同 session 使用不同授权；禁止给模型一个跨会话“当前角色”。同一宿主 session 同时只能有一个有效绑定，即便申请来自不同连接授权。
 
-默认严格模式尚不能在真实 Codex 中激活角色：CLI 没有可信的生产宿主验证器，会返回 ISOLATION_UNSUPPORTED。没有把 M0 实验报告当成真实会话凭据。管理者可显式 `--isolation relaxed` 做本地协议试验，结果始终标记 relaxed；这不代表记忆隔离，agent 参数不能切换隔离级别。通过 HTTP 测试客户端验证绑定的例子在 tests/service.test.ts，不需要模型或 Codex 凭据。
+默认严格模式尚不能在 Codex 或 dsh 等未认证宿主中激活角色：CLI 没有可信的生产宿主验证器，会返回 ISOLATION_UNSUPPORTED。没有把 M0 实验报告当成真实会话凭据；各宿主认证结果见[实现状态](status.md#宿主隔离认证)。管理者可对单个授权显式使用 `--isolation relaxed`，包括在未认证宿主上加载真实角色与私人记忆；这是知情的风险选择，结果始终标记 relaxed，不代表记忆隔离，agent 参数不能切换隔离级别。通过 HTTP 测试客户端验证绑定的例子在 tests/service.test.ts，不需要模型或 Codex 凭据。
 
 ## 运行协议
 

@@ -1,8 +1,8 @@
 # characters 统一契约
 
-版本：接入协议 v1，设计 v0.2，2026-10-25。M1 至 M4 的管理服务、协议、上下文/记忆业务与 MCP 网关已实现；M5 有通用包准备，生产宿主验证器及 strict 未验收。实际 CLI 见 service.md、memory.md 和 mcp.md。
+版本：接入协议 v1，设计 v0.3，2026-11-05。实现状态只在[实现状态](status.md)维护；实际 CLI 见 service.md、memory.md 和 mcp.md。
 
-当前 31 份持久/执行 schema 来自 packages/core/src/schemas.ts。M1 已实现新持久模型、Memory v2 迁移与备份回滚；packages/protocol 提供六种请求、响应、版本协商、MCP 映射、预算与 strict 准入。M2 本地管理服务已实现，实际命令及生产宿主限制见 service.md。下列 Binding、ConnectionGrant、HostEvidence、ContextDelivery 等是新对象，不复用旧 Session / Run，持久结构由 Core 校验，协议复用这些领域 schema。
+持久/执行 schema 来自 packages/core/src/schemas.ts；packages/protocol 提供请求、响应、版本协商、MCP 映射、预算与 strict 准入。下列 Binding、ConnectionGrant、HostEvidence、ContextDelivery 等是新对象，不复用旧 Session / Run，持久结构由 Core 校验，协议复用这些领域 schema。
 
 原 Work、Session、Run、执行适配器与 JSONL worker 设计保存在[旧执行契约](legacy-execution-contracts.md)；实际已实现命令见[Codex 试用](codex.md)与 CLI help。当前产品边界以[系统设计](design.md)为准。
 
@@ -114,7 +114,11 @@ interface HostEvidence {
 
 证据由可信本地验证器提交至管理面，模型不能通过 agent RPC 上传 pass。单靠宿主自报版本、模型回答、MCP clientInfo 或安装声明均不能生成可信证据。匹配连接、会话、插件、二进制/配置及检查版本，证据期限不超过 60 分钟；环境变化需立即重新验证，不能只等 TTL。
 
-strict 要求读写两项 disabled、有效 pass 及明确的会话注入方式，且记录宿主文件权限边界。fileBoundary=host-controlled 不等于阻断任意本机文件访问；strict 只命名“经验证的宿主自动记忆策略”，不能显示成完整系统沙箱。relaxed 需管理端显式批准并展示缺项，不可由 agent 自动选择。
+strict 要求读写两项 disabled、有效 pass 及明确的会话注入方式，且记录宿主文件权限边界。fileBoundary=host-controlled 不等于阻断任意本机文件访问；strict 只命名“经验证的宿主自动记忆策略”，不能显示成完整系统沙箱。
+
+可信验证器按宿主、按版本分别实现和认证；某个宿主版本的认证结论不外推到其他宿主或版本，结果记录在[实现状态](status.md#宿主隔离认证)。没有认证的宿主默认拒绝 strict 绑定（ISOLATION_UNSUPPORTED）。
+
+relaxed 只能由管理端在 ConnectionGrant 上显式设置（isolation=relaxed），绑定的 isolationEffective 随之为 relaxed；agent、插件和模型参数都不能选择或降级。用户可以在未认证宿主上用 relaxed 加载真实角色与私人记忆，这是知情的风险选择，不构成 strict 证据。当前授权只记录隔离级别；按宿主能力档案结构化记录缺项属于后续工作，见路线图 R3。
 
 ## RPC 封装与工具映射
 

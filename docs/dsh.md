@@ -72,7 +72,7 @@ pnpm characters gateway pair --workspace EXPLICIT_TEST_WORKSPACE --connection AC
 
 读取真实结构化输出的 grant.id 与 pairingRef，不能复制示例字符串冒充配对。默认 strict；如果没有可信服务端 dsh 验证器，bindings_open 返回 ISOLATION_UNSUPPORTED，这是预期的拒绝。
 
-只有管理端明确选择 `--isolation relaxed` 的合成实验才能在验证缺失时读取合成数据，不能由插件/模型自行降级。当前真实用户私有角色/记忆接入的 strict 验证缺口必须解决后再验收。
+验证缺失时，只有管理端对该授权明确选择 `--isolation relaxed` 才能加载角色内容，不能由插件/模型自行降级。用户可以在 relaxed 下使用真实角色与私人记忆，这是知情接受 dsh 可能读取或生成全局记忆的风险选择，结果只能记为“relaxed 下使用”。dsh strict 认证仍缺可信验证器，见路线图 R3。
 
 准备绑定本机配置的独立包：
 

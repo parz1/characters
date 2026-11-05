@@ -12,6 +12,6 @@
 
 `plugin codex doctor` 目前明确报告 strictReady=false：尚无生产当前会话策略验证器。
 即使 MCP 可用也不能据此声称宿主记忆已隔离；strict 绑定默认失败。
-relaxed 只适用于管理端明确授权的合成数据测试，不满足真实 strict 验收。
+relaxed 只能由管理端对单个授权明确选择，是用户知情的风险选择，不满足 strict 认证。Codex 插件目前暂缓，见 docs/status.md。
 实际 Codex 原生交互、技能路由、fork/恢复/压缩、完整工具预算与后台记忆排除仍待验证。
 不调用模型、不读取模型凭证、不修改现有 daemon、全局记忆或插件设置。

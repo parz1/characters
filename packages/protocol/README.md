@@ -6,4 +6,4 @@
 
 strictActivationDecision 只判断服务端可信验证结果是否满足准入条件，不验证调用方身份或自行产生证据。模型自报、实验报告、共享配置写入和跨会话影响均被拒绝；允许加载仍需后续服务完成鉴权、范围、版本和绑定检查。当前真实 Codex 插件会话尚无可信证据提供者，不能拿本函数的单元测试宣称 strict 已完成。
 
-M1 结果封装、逐操作响应、版本协商已实现；持久记录由 Core 的 31 份 schema 定义，显式迁移 / 备份 / 回滚由 Core 执行。M2 服务在 packages/service，使用本协议执行鉴权后的发现与绑定；M3 上下文和记忆业务已实现，memory.search 返回带交付清单的 {delivery, matches}。见[服务指南](../../docs/service.md)与[实现计划](../../docs/phase-1.md)。M0 证据见[报告](../../docs/codex-m0.md)。
+M1 结果封装、逐操作响应、版本协商已实现；持久记录由 Core 的 31 份 schema 定义，显式迁移 / 备份 / 回滚由 Core 执行。M2 服务在 packages/service，使用本协议执行鉴权后的发现与绑定；M3 上下文和记忆业务已实现，memory.search 返回带交付清单的 {delivery, matches}。见[服务指南](../../docs/service.md)与[实现状态](../../docs/status.md)。M0 证据见[报告](../../docs/codex-m0.md)。
