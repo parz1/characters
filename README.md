@@ -79,6 +79,7 @@ M4 同样的合成流程可经真实 MCP SDK 客户端运行：`pnpm demo:m4 --w
 | [系统设计](docs/design.md)                             | 定位、架构、管理服务、插件与隔离边界     |
 | [统一契约](docs/contracts.md)                          | 绑定、能力、上下文、记忆、操作与管理命令 |
 | [第一阶段实现计划](docs/phase-1.md)                    | 已完成基础、后续里程碑、验证矩阵与验收   |
+| [路线图](docs/roadmap.md)                              | 重新评估、目标与 R0–R5 建议里程碑        |
 | [Koto 长期相处验收](docs/koto-long-term-acceptance.md) | 场景步骤、证据与评分、当前实现缺口       |
 | [Codex 插件设计](docs/codex-plugin.md)                 | 接入包、原生使用、能力证据和最小闭环     |
 | [存储与恢复](docs/storage.md)                          | 已实现事务、版本和故障保证               |
